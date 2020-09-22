@@ -1,0 +1,94 @@
+/*enqueue() − add (store) an item to the queue.
+
+dequeue() − remove (access) an item from the queue.
+
+peek() − Gets the element at the front of the queue without removing it.
+
+
+isempty() − Checks if the queue is empty.
+*/
+
+package main
+
+import "fmt"
+
+type node struct{
+	data int
+	next *node
+}
+
+type queue struct{
+	head *node
+}
+
+func enqueue(queueList *queue,data int){
+	node := &node{data : data}
+	if(queueList.head == nil){
+		queueList.head = node
+	}else{
+		node.next = queueList.head
+		queueList.head = node
+	}
+}
+
+func dequeue(queueList *queue){
+	temp := queueList.head
+	prev := queueList.head
+	if(temp == nil || temp.next == nil){
+		queueList.head = nil
+	}else{
+		for temp.next != nil{
+			prev = temp
+			temp = temp.next
+		}
+		prev.next = nil
+	}
+}
+
+func peek(queueList *queue)(int){
+	temp := queueList.head
+	for temp.next != nil{
+		temp = temp.next
+	}
+	return temp.data
+}
+
+func printQueue(queueList *queue){
+	temp := queueList.head
+	for temp != nil{
+		fmt.Print(temp.data)
+		temp = temp.next
+	}
+	fmt.Println()
+}
+
+func isEmpty(queueList *queue)(bool){
+	if(queueList.head == nil){
+		return true
+	}else{
+		return false
+	}
+}
+
+func main(){
+
+	queueList := &queue{}
+
+	if(isEmpty(queueList)){
+		fmt.Println("Empty")
+	}
+	for i:=1;i<=5;i++{
+		enqueue(queueList,i)
+	}
+	printQueue(queueList)
+
+	fmt.Println("Dequeue")
+
+	dequeue(queueList)
+
+	printQueue(queueList)
+
+	fmt.Print("Peek ")
+	fmt.Println(peek(queueList))
+
+}
