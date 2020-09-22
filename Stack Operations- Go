@@ -1,0 +1,88 @@
+/*
+push() − Pushing (storing) an element on the stack.
+
+pop() − Removing (accessing) an element from the stack.
+
+When data is PUSHed onto stack.
+
+To use a stack efficiently, we need to check the status of stack as well. For the same purpose, the following functionality is added to stacks −
+
+peek() − get the top data element of the stack, without removing it.
+
+isFull() − check if stack is full.
+
+isEmpty() − check if stack is empty
+*/
+package main
+
+import "fmt"
+
+type node struct{
+	data int
+	next *node
+}
+
+type stack struct{
+	head *node
+}
+
+func push(stackList *stack,data int){			//pushes node to the top
+	
+	node := &node{data : data}
+
+	if(stackList.head == nil){
+		stackList.head = node
+	}else{
+		node.next = stackList.head
+		stackList.head = node
+	}
+
+}
+
+func pop(stackList *stack){						// pops top element of the stack
+	stackList.head = stackList.head.next
+}
+
+func isEmpty(stackList *stack)(bool){
+	if(stackList.head == nil){
+		return true
+	}else{
+		return false
+	}
+}
+
+func peek(stackList *stack)(int){
+	return stackList.head.data
+}
+
+func printStack(stackList *stack){
+	temp := stackList.head
+	for temp != nil{
+		fmt.Print(temp.data)
+		temp = temp.next
+	}
+	fmt.Println()
+}
+
+func main(){    //Driver code
+
+	stackList := &stack{} 
+
+	if(isEmpty(stackList)){
+		fmt.Println("Empty")
+	}
+	for i:=1;i<=5;i++{
+		push(stackList,i)
+	}
+	printStack(stackList)
+
+	fmt.Println("pop")
+
+	pop(stackList)
+
+	printStack(stackList)
+
+	fmt.Print("Peek ")
+	fmt.Println(peek(stackList))
+
+}
