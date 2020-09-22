@@ -9,8 +9,6 @@ To use a stack efficiently, we need to check the status of stack as well. For th
 
 peek() − get the top data element of the stack, without removing it.
 
-isFull() − check if stack is full.
-
 isEmpty() − check if stack is empty
 */
 package main
